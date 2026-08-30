@@ -144,7 +144,8 @@ SBA와 DOD의 차이점은 불변량이 데이터 내부에 존재하고, 함수
 
 ### 방식 2. Chao1 비모수 하한 모델
 - **수학적 공식**:
-  $$\hat{N}_{\text{Chao1}} = S_{\text{obs}} + \frac{f_1^2}{2 f_2}, \quad \text{Var}(\hat{N}) = f_2 \left[ \frac{1}{2}\left(\frac{f_1}{f_2}\right)^2 + \left(\frac{f_1}{f_2}\right)^3 + \frac{1}{4}\left(\frac{f_1}{f_2}\right)^4 \right}$$
+  $$\hat{N}_{\text{Chao1}} = S_{\text{obs}} + \frac{f_1^2}{2 f_2}$$
+  $$\text{Var}(\hat{N}_{\text{Chao1}}) = \frac{f_1^2}{2 f_2} + \frac{f_1^3}{f_2^2} + \frac{f_1^4}{4 f_2^3}$$
 - **수학적 근거**:
   - 코시-슈바르츠 부등식(Cauchy-Schwarz Inequality)에 기반하여 0회 포획 결함($f_0$)의 **이론적 최소 하한선**을 추정합니다.
   - **SBA**: $f_1/f_2 = 5/7 = 0.714 \implies f_0 = 1.8$개 (미발견 결함 하한선이 2개 미만).
@@ -154,7 +155,7 @@ SBA와 DOD의 차이점은 불변량이 데이터 내부에 존재하고, 함수
 
 ### 방식 3. 2차 잭나이프 모델 (Jackknife-2)
 - **수학적 공식**:
-  $$\hat{N}_{\text{Jack2}} = S_{\text{obs}} + f_1 \left(\frac{2K - 3}{K}\right) - f_2 \left(\frac{(K - 2)^2}{K(K - 1)}\right) \quad (K=25)}$$
+  $$\hat{N}_{\text{Jack2}} = S_{\text{obs}} + f_1 \left(\frac{2K - 3}{K}\right) - f_2 \left(\frac{(K - 2)^2}{K(K - 1)}\right) \quad (K=25)$$
 - **수학적 근거**:
   - 25개 에이전트 표본에서 하나씩 제거하며 리샘플링하여 $O(1/K^2)$ 차수의 표본 편향을 제거(Burnham & Overton, 1978)한 비모수 모델입니다.
   - **SBA**: $f_1=5$가 작아 점추정치 $\hat{N} = 21 + 9.40 - 6.17 = \mathbf{24.2\text{개}}$.
@@ -164,7 +165,8 @@ SBA와 DOD의 차이점은 불변량이 데이터 내부에 존재하고, 함수
 
 ### 방식 4. Chao $M_h$ 포획 이질성($\hat{\gamma}^2$) 보정 모델
 - **수학적 공식**:
-  $$\hat{N}_{M_h} = S_{\text{obs}} + \frac{f_1^2}{2 f_2} (1 + \hat{\gamma}^2), \quad \hat{\gamma}^2 = \max\left(0, \;\; \frac{S_{\text{obs}} \sum k(k-1)f_k}{\left(\sum k f_k\right)^2} \cdot \frac{K}{K-1} - 1\right)}$$
+  $$\hat{N}_{M_h} = S_{\text{obs}} + \frac{f_1^2}{2 f_2} (1 + \hat{\gamma}^2)$$
+  $$\hat{\gamma}^2 = \max \left[ 0, \frac{S_{\text{obs}} \sum k(k-1)f_k}{\left(\sum k f_k\right)^2} \cdot \frac{K}{K-1} - 1 \right]$$
 - **수학적 근거**:
   - 결함 간 발견 난이도 편차(변동계수 $\hat{\gamma}^2$)를 실측 2차 모멘트로부터 산출하여 단순 하한을 팽창 보정한 모델입니다.
   - **SBA**: $\hat{\gamma}^2 = 1.154$ (상위 결함 집중도가 높아 고이질성 보정 적용 $\implies \hat{N} = \mathbf{24.9\text{개}}$).
@@ -174,7 +176,8 @@ SBA와 DOD의 차이점은 불변량이 데이터 내부에 존재하고, 함수
 
 ### 방식 5. Reed 이중 파레토(Double Pareto) 멱법칙 꼬리 모델
 - **수학적 공식**:
-  $$f_0 = \frac{f_1}{\beta} \cdot \Gamma\left(1 - \frac{1}{\alpha}\right), \quad \hat{N}_{\text{DP}} = S_{\text{obs}} + f_0$$
+  $$f_0 = \frac{f_1}{\beta} \, \Gamma\left(1 - \frac{1}{\alpha}\right)$$
+  $$\hat{N}_{\text{DP}} = S_{\text{obs}} + f_0$$
 - **수학적 근거**:
   - 소프트웨어 결함 빈도가 멱법칙 롱테일(Shriram et al., 2018; Reed, 2001)을 따를 때, 극미세 엣지 결함의 적분값을 추정합니다.
   - **SBA**: 꼬리 지수 $\beta \approx 1.25$로 빠르게 감쇄 $\implies f_0 \approx 4.5$개 ($\hat{N} = \mathbf{25.5\text{개}}$).
