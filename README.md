@@ -145,6 +145,7 @@ SBA와 DOD의 차이점은 불변량이 데이터 내부에 존재하고, 함수
 ### 방식 2. Chao1 비모수 하한 모델
 - **수학적 공식**:
   $$\hat{N}_{\text{Chao1}} = S_{\text{obs}} + \frac{f_1^2}{2 f_2}$$
+  
   $$\text{Var}(\hat{N}_{\text{Chao1}}) = \frac{f_1^2}{2 f_2} + \frac{f_1^3}{f_2^2} + \frac{f_1^4}{4 f_2^3}$$
 - **수학적 근거**:
   - 코시-슈바르츠 부등식(Cauchy-Schwarz Inequality)에 기반하여 0회 포획 결함($f_0$)의 **이론적 최소 하한선**을 추정합니다.
@@ -166,6 +167,7 @@ SBA와 DOD의 차이점은 불변량이 데이터 내부에 존재하고, 함수
 ### 방식 4. Chao $M_h$ 포획 이질성($\hat{\gamma}^2$) 보정 모델
 - **수학적 공식**:
   $$\hat{N}_{M_h} = S_{\text{obs}} + \frac{f_1^2}{2 f_2} (1 + \hat{\gamma}^2)$$
+  
   $$\hat{\gamma}^2 = \max \left[ 0, \frac{S_{\text{obs}} \sum k(k-1)f_k}{\left(\sum k f_k\right)^2} \cdot \frac{K}{K-1} - 1 \right]$$
 - **수학적 근거**:
   - 결함 간 발견 난이도 편차(변동계수 $\hat{\gamma}^2$)를 실측 2차 모멘트로부터 산출하여 단순 하한을 팽창 보정한 모델입니다.
@@ -177,6 +179,7 @@ SBA와 DOD의 차이점은 불변량이 데이터 내부에 존재하고, 함수
 ### 방식 5. Reed 이중 파레토(Double Pareto) 멱법칙 꼬리 모델
 - **수학적 공식**:
   $$f_0 = \frac{f_1}{\beta} \, \Gamma\left(1 - \frac{1}{\alpha}\right)$$
+  
   $$\hat{N}_{\text{DP}} = S_{\text{obs}} + f_0$$
 - **수학적 근거**:
   - 소프트웨어 결함 빈도가 멱법칙 롱테일(Shriram et al., 2018; Reed, 2001)을 따를 때, 극미세 엣지 결함의 적분값을 추정합니다.
